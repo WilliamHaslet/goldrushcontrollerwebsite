@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="arrowButtons.js"></script>
+
+    <script type="text/javascript" src="connectionCode.js"></script>
+
+    <link rel="stylesheet" href="normalize.css">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <p id="nameLabel">Player Name</p>
+
+    <input id="nameInput" placeholder="Enter Name..." />
+
+    <p id="status">Status</p>
+
+    <div id="buttonContainer">
+
+        <div id="upArrowDiv">
+
+            <img src="images/idleArrow.png" id="upArrowImage" class="arrowImage" />
+
+            <button id="upArrow" class="arrowButton"></button>
+
+        </div>
+
+        <div id="leftArrowDiv">
+
+            <img src="images/idleArrow.png" id="leftArrowImage" class="arrowImage" />
+
+            <button id="leftArrow" class="arrowButton"></button>
+
+        </div>
+
+        <div id="downArrowDiv">
+
+            <img src="images/idleArrow.png" id="downArrowImage" class="arrowImage" />
+
+            <button id="downArrow" class="arrowButton"></button>
+
+        </div>
+
+        <div id="rightArrowDiv">
+
+            <img src="images/idleArrow.png" id="rightArrowImage" class="arrowImage" />
+
+            <button id="rightArrow" class="arrowButton"></button>
+
+        </div>
+
+    </div>
+
+    <p id="connectionCodeLabel">Connection Code</p>
+
+    <input id="connectionCode" placeholder="Enter Code..." />
+
+    <button id="connectButton">Connect</button>
+
+    <p id="sendByteCount">0 bytes sent</p>
+
+    <script>
+
+        var socket;
+
+        var socketConnected = false;
+
+        var byteCount = 0;
+
+        let byteCounter = document.getElementById("sendByteCount");
+
+        function connectSocket() {
+
+            socket = new WebSocket("ws://" + ConnectionCode.decode(document.getElementById("connectionCode").value) + ":11111");
+
+            socket.onopen = event => {
+
+                console.log("WebSocket connected");
+
+                socketConnected = true;
+
+                socket.send("Request:Name:" + document.getElementById("nameInput").value);
+
+            }
+
+            socket.onclose = event => {
+
+                console.log("WebSocket disconnected");
+
+                socketConnected = false;
+
+            }
+
+            socket.onerror = event => {
+
+                console.log(event);
+
+            }
+
+            socket.onmessage = message => {
+
+                console.log("Recieved: " + message.data);
+
+            }
+
+            byteCount = 0;
+
+        }
+
+        document.getElementById("connectButton").onclick = connectSocket;
+
+        function RoundTo(value, decimalPlaces) {
+
+            return Math.round(value * (10 ** decimalPlaces)) / (10 ** decimalPlaces);
+
+        }
+
+        function AddToByteCount(message) {
+
+            byteCount += message.length;
+
+            if (byteCount > 500) {
+
+                byteCounter.innerText = RoundTo(byteCount / 1000, 1) + " kilobytes";
+
+            }
+            else if (byteCount > 500000) {
+
+                byteCounter.innerText = RoundTo(byteCount / 1000000, 1) + " megabytes";
+
+            }
+            else {
+
+                byteCounter.innerText = byteCount + " bytes";
+
+            }
+
+        }
+
+        let arrows = new ArrowButtons();
+
+        var lastJoystickValue = 0;
+
+        function loop() {
+
+            requestAnimationFrame(loop);
+
+            if (arrows.value.x != lastJoystickValue.x || arrows.value.y != lastJoystickValue.y) {
+
+                document.getElementById("status").innerText = "x: " + RoundTo(arrows.value.x, 2) + "\ny: " + RoundTo(arrows.value.y, 2);
+
+                sendJoystickData();
+
+            }
+
+        }
+
+        function sendJoystickData() {
+
+            if (arrows.value.x != lastJoystickValue.x || arrows.value.y != lastJoystickValue.y) {
+
+                if (socketConnected) {
+
+                    var message = JSON.stringify(arrows.value);
+
+                    AddToByteCount(message);
+
+                    socket.send(message);
+
+                }
+
+                lastJoystickValue = arrows.value;
+
+            }
+
+        }
+
+        loop();
+
+    </script>
+
+</body>
+
+</html>

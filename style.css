@@ -1,0 +1,183 @@
+body {
+    background-color: rgb(66, 66, 66);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+}
+
+#buttonContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -155px;
+    margin-top: -103px;
+    width: 310px;
+    height: 205px;
+}
+
+#upArrowDiv {
+    position: fixed;
+    left: 50%;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+}
+
+#downArrowDiv {
+    position: relative;
+    left: 50%;
+    top: 27%;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    /* Rotate 180 */
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+}
+
+#rightArrowDiv {
+    position: relative;
+    top: -23%;
+    left: 67.5%;
+    margin-top: -50px;
+    width: 100px;
+    height: 100px;
+    /* Rotate 90 */
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
+
+#leftArrowDiv {
+    position: relative;
+    top: 50%;
+    margin-top: -50px;
+    width: 100px;
+    height: 100px;
+    /* Rotate 270 */
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+}
+
+.arrowButton {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background: none;
+    border: none;
+}
+
+.arrowImage {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+}
+
+#connectionCodeLabel {
+    position: fixed;
+    bottom: 23%;
+    left: 50%;
+    margin-left: -100px;
+    margin-bottom: -15px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-family: monospace, monospace;
+    font-weight: bold;
+}
+
+#connectionCode {
+    position: fixed;
+    bottom: 15%;
+    left: 50%;
+    margin-left: -100px;
+    margin-bottom: -15px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-family: monospace, monospace;
+    background-color: rgb(50, 50, 50);
+    border: none;
+}
+
+#connectButton {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    margin-left: -100px;
+    margin-bottom: -15px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-family: monospace, monospace;
+    font-weight: bold;
+    background-color: rgb(50, 50, 50);
+    border: none;
+}
+
+#sendByteCount {
+    position: fixed;
+    padding-left: 15px;
+    color: grey;
+    font-size: small;
+    font-family: monospace, monospace;
+}
+
+#status {
+    position: fixed;
+    top: 23%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -25px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-family: monospace, monospace;
+    font-weight: bold;
+}
+
+#nameLabel {
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    margin-left: -100px;
+    margin-bottom: -15px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-family: monospace, monospace;
+    font-weight: bold;
+}
+
+#nameInput {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    margin-left: -100px;
+    margin-bottom: -15px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-family: monospace, monospace;
+    background-color: rgb(50, 50, 50);
+    border: none;
+}
